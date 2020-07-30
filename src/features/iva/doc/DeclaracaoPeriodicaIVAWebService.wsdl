@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:tns="https://servicos.portaldasfinancas.gov.pt/dpivaws/DeclaracaoPeriodicaIVAWebService"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		name="DeclaracaoPeriodicaIVAWebService"
+		targetNamespace="https://servicos.portaldasfinancas.gov.pt/dpivaws/DeclaracaoPeriodicaIVAWebService">
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="https://servicos.portaldasfinancas.gov.pt/dpivaws/DeclaracaoPeriodicaIVAWebService">
+
+			<xsd:element name="submeterDeclaracaoPeriodicaIVARequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="versaoDeclaracao" minOccurs="1" maxOccurs="1">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="10" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="declaracao" type="xsd:base64Binary" minOccurs="1" maxOccurs="1" />
+						<xsd:element name="aceitaAlertas" type="xsd:boolean" minOccurs="0" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="submeterDeclaracaoPeriodicaIVAResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="codigo" type="xsd:int" minOccurs="1" maxOccurs="1" />
+						<xsd:element name="mensagem" type="xsd:string" minOccurs="0" maxOccurs="1" />
+						<xsd:element name="dadosSubmissao" type="tns:informacaoSubmissao" minOccurs="0" maxOccurs="1" />
+						<xsd:element name="alertas" type="tns:informacaoAlertas" minOccurs="0" maxOccurs="1" />
+						<xsd:element name="erros" type="tns:informacaoErros" minOccurs="0" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="validarDeclaracaoPeriodicaIVARequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="versaoDeclaracao" minOccurs="1" maxOccurs="1">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="10" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="declaracao" type="xsd:base64Binary" minOccurs="1" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="validarDeclaracaoPeriodicaIVAResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="codigo" type="xsd:int" minOccurs="1" maxOccurs="1" />
+						<xsd:element name="mensagem" type="xsd:string" minOccurs="0" maxOccurs="1" />
+						<xsd:element name="alertas" type="tns:informacaoAlertas" minOccurs="0" maxOccurs="1" />
+						<xsd:element name="erros" type="tns:informacaoErros" minOccurs="0" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="AutenticationException">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AuthenticationFailed" minOccurs="1" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="Code" type="xsd:int" minOccurs="1" maxOccurs="1" />
+									<xsd:element name="Message" type="xsd:string" minOccurs="1" maxOccurs="1" />
+									<xsd:element name="NumberOfTriesRemaining" type="xsd:int" minOccurs="1" maxOccurs="1" />
+									<xsd:element name="Actor" type="xsd:string" minOccurs="0" maxOccurs="1" />
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="informacaoSubmissao">
+				<xsd:sequence>
+					<xsd:element name="data" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="ano" type="xsd:short" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="periodo" type="xsd:string" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="idDeclaracao" type="xsd:long" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="contribuinte" minOccurs="1" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="actor" type="xsd:string" minOccurs="1" maxOccurs="1" />
+								<xsd:element name="nif" type="xsd:long" minOccurs="1" maxOccurs="1" />
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="informacaoAlertas">
+				<xsd:sequence>
+					<xsd:element name="temMaisAlertas" type="xsd:boolean" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="alerta" type="tns:informacaoErroOuAlerta" minOccurs="1" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="informacaoErros">
+				<xsd:sequence>
+					<xsd:element name="temMaisErros" type="xsd:boolean" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="erro" type="tns:informacaoErroOuAlerta" minOccurs="1" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="informacaoErroOuAlerta">
+				<xsd:sequence>
+					<xsd:element name="anexo" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="quadro" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="codigo" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="mensagem" type="xsd:string" minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="submeterDeclaracaoPeriodicaIVARequest">
+		<wsdl:part element="tns:submeterDeclaracaoPeriodicaIVARequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="submeterDeclaracaoPeriodicaIVAResponse">
+		<wsdl:part element="tns:submeterDeclaracaoPeriodicaIVAResponse" name="response" />
+	</wsdl:message>
+
+	<wsdl:message name="validarDeclaracaoPeriodicaIVARequest">
+		<wsdl:part element="tns:validarDeclaracaoPeriodicaIVARequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="validarDeclaracaoPeriodicaIVAResponse">
+		<wsdl:part element="tns:validarDeclaracaoPeriodicaIVAResponse" name="response" />
+	</wsdl:message>
+
+	<wsdl:message name="AutenticationFault">
+		<wsdl:part element="tns:AutenticationException" name="fault" />
+	</wsdl:message>
+
+	<wsdl:message name="submeterRequestMessage">
+		<wsdl:part name="Request" element="tns:submeterDeclaracaoPeriodicaIVARequest" />
+	</wsdl:message>
+
+	<wsdl:message name="submeterResponseMessage">
+		<wsdl:part name="Response" element="tns:submeterDeclaracaoPeriodicaIVAResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="submeterFaultMessage">
+		<wsdl:part name="Fault" element="tns:AutenticationException" />
+	</wsdl:message>
+
+	<wsdl:message name="validarRequestMessage">
+		<wsdl:part name="Request" element="tns:validarDeclaracaoPeriodicaIVARequest" />
+	</wsdl:message>
+
+	<wsdl:message name="validarResponseMessage">
+		<wsdl:part name="Response" element="tns:validarDeclaracaoPeriodicaIVAResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="validarFaultMessage">
+		<wsdl:part name="Fault" element="tns:AutenticationException" />
+	</wsdl:message>
+
+	<wsdl:portType name="DeclaracaoPeriodicaIVAWebService">
+
+		<wsdl:operation name="submeterDeclaracao">
+			<wsdl:input message="tns:submeterRequestMessage" />
+			<wsdl:output message="tns:submeterResponseMessage" />
+			<wsdl:fault message="tns:submeterFaultMessage" name="AutenticationFault" />
+		</wsdl:operation>
+
+		<wsdl:operation name="validarDeclaracao">
+			<wsdl:input message="tns:validarRequestMessage" />
+			<wsdl:output message="tns:validarResponseMessage" />
+			<wsdl:fault message="tns:validarFaultMessage" name="AutenticationFault" />
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+	<wsdl:binding name="DeclaracaoPeriodicaIVAWebServicePortBinding" type="tns:DeclaracaoPeriodicaIVAWebService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="submeterDeclaracao">
+			<soap:operation soapAction="tns:submeterDeclaracao" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="AutenticationFault">
+				<soap:fault name="AutenticationFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="validarDeclaracao">
+			<soap:operation soapAction="tns:validarDeclaracao" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="AutenticationFault">
+				<soap:fault name="AutenticationFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="DeclaracaoPeriodicaIVAWebService">
+		<wsdl:port binding="tns:DeclaracaoPeriodicaIVAWebServicePortBinding" name="DeclaracaoPeriodicaIVAWebServicePort">
+			<soap:address location="https://servicos.portaldasfinancas.gov.pt/dpivaws/DeclaracaoPeriodicaIVAWebService/" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

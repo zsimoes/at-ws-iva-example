@@ -1,0 +1,24 @@
+<S:Header>
+    <wss:Security 
+        xmlns:wss="http://schemas.xmlsoap.org/ws/2002/12/secext" 
+        S:actor="http://at.pt/actor/SPA" 
+        at:Version="2">
+        <wss:UsernameToken>
+            <wss:Username>111111111</wss:Username>
+            <wss:Password Digest="AAAAAA==">AAAAAAAAAAAAAAAA=</wss:Password>
+            <wss:Nonce> AAAAAAAAAAA</wss:Nonce>
+            <wss:Created>20152015-03-09T20:45:05.424Z</wss:Created>
+        </wss:UsernameToken>
+    </wss:Security>
+    <wss:Security 
+        xmlns:wss="http://schemas.xmlsoap.org/ws/2002/12/secext" 
+        S:actor="http://at.pt/actor/TOC" 
+        at:Version="2">
+        <wss:UsernameToken>
+            <wss:Username>333333333</wss:Username>
+            <wss:Password Digest="TTTTTTT==">TTTTTTTTTTTTTTTTT=</wss:Password>
+            <wss:Nonce> TTTTTTTTTTTTTTTTTTTTTTT</wss:Nonce>
+            <wss:Created>2015-03-09T20:45:05.424Z</wss:Created>
+        </wss:UsernameToken>
+    </wss:Security>
+</S:Header>
