@@ -1,7 +1,7 @@
 import xml2js from 'xml2js';
 
 import { throwHttpError, throwIfAbsent } from '../../../common/util';
-import { debugLogWithSeparators } from '../util/util';
+import { debugLogWithSeparators } from './util';
 
 const getSoapResponse = xmlJsonRawResponse => {
   const soapBody = xmlJsonRawResponse?.['SOAP-ENV:Envelope']?.['SOAP-ENV:Body'];
